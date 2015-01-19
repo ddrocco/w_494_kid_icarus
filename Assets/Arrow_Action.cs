@@ -31,6 +31,6 @@ public class Arrow_Action : MonoBehaviour {
 	}
 
 	void OnDestroy() {
-		Player_Action.shotArrow = false;
+		Player_Shoot.shotArrow = false;
 	}
 }
