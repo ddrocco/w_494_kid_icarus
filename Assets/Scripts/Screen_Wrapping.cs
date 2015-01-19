@@ -5,16 +5,16 @@ public class Screen_Wrapping : MonoBehaviour {
 	private Renderer[] renderers;
 	private bool isWrappingX = false;
 	private float screenWidth;
-	private float screenHeight;
 	private Transform[] ghosts = new Transform[2];
+	private Vector3 screenBottomLeft;
+	private Vector3 screenTopRight;
 
 	// Use this for initialization
 	void Start () {
 		renderers = GetComponentsInChildren<Renderer>();
-		Vector3 screenBottomLeft = Camera.main.ViewportToWorldPoint (new Vector3 (0, 0, transform.position.z));
-		Vector3 screenTopRight = Camera.main.ViewportToWorldPoint (new Vector3 (1, 1, transform.position.z));
+		screenBottomLeft = Camera.main.ViewportToWorldPoint (new Vector3 (0, 0, 0));
+		screenTopRight = Camera.main.ViewportToWorldPoint (new Vector3 (1, 1, 0));
 		screenWidth = screenTopRight.x - screenBottomLeft.x;
-		screenHeight = screenTopRight.y - screenBottomLeft.y;
 		CreateGhosts ();
 		PositionGhosts ();
 	}
@@ -32,6 +32,7 @@ public class Screen_Wrapping : MonoBehaviour {
 		for (int i = 0; i < 2; ++i) {
 			ghosts[i] = Instantiate (transform, Vector3.zero, Quaternion.identity) as Transform;
 			DestroyImmediate(ghosts[i].GetComponent<Screen_Wrapping>());
+			DestroyImmediate(ghosts[i].GetComponent<Player_Shoot>());
 		}
 	}
 	
@@ -47,24 +48,18 @@ public class Screen_Wrapping : MonoBehaviour {
 		ghostPosition.x = transform.position.x - screenWidth;
 		ghostPosition.y = transform.position.y;
 		ghosts [1].position = ghostPosition;
-		
-		for (int i = 0; i < 2; ++i) {
-			ghosts[i].rotation = transform.rotation;
-		}
 	}
 	
 	void Swap() {
 		foreach (Transform ghost in ghosts) {
 			if (ghost.position.x < screenWidth &&
-			    ghost.position.x > -screenWidth &&
-			    ghost.position.y < screenHeight &&
-			    ghost.position.y > -screenHeight)
+			    ghost.position.x > -screenWidth)
 			{
 				transform.position = ghost.position;
+				print ("swapped!");
 				break;
 			}
 		}
-		PositionGhosts ();
 	}
 	
 	void ScreenWrap() {
@@ -73,6 +68,7 @@ public class Screen_Wrapping : MonoBehaviour {
 			return;
 		}
 		if (isWrappingX) {
+			print ("wrapping!");
 			return;
 		}
 		Vector3 viewportPos = Camera.main.WorldToViewportPoint(transform.position);
@@ -88,6 +84,9 @@ public class Screen_Wrapping : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		ScreenWrap ();
-		Swap ();
+		if (transform.position.x < screenBottomLeft.x || transform.position.x > screenTopRight.x) {
+			Swap();
+		}
+		PositionGhosts ();
 	}
 }

@@ -1,9 +1,8 @@
 fileFormatVersion: 2
-guid: 273d9ba3531394668b28001a0d640601
+guid: 7fd3333eafcd08644918f4ecc008f3bc
 MonoImporter:
   serializedVersion: 2
-  defaultReferences:
-  - player: {fileID: 127344, guid: c93b7476c5e765b4c999533f0603a344, type: 2}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
