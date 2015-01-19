@@ -56,7 +56,6 @@ public class Screen_Wrapping : MonoBehaviour {
 			    ghost.position.x > -screenWidth)
 			{
 				transform.position = ghost.position;
-				print ("swapped!");
 				break;
 			}
 		}
@@ -68,7 +67,6 @@ public class Screen_Wrapping : MonoBehaviour {
 			return;
 		}
 		if (isWrappingX) {
-			print ("wrapping!");
 			return;
 		}
 		Vector3 viewportPos = Camera.main.WorldToViewportPoint(transform.position);
