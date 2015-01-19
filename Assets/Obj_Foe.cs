@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Obj_Foe : PE_Obj {
+public class Obj_Foe : MonoBehaviour {
 
 	/*// Use this for initialization
 	void Start () {

@@ -1,0 +1,105 @@
+Kid Icarus notes
+
+Pause screen snaps; no elegant transition
+
+Bushes go in front of Pit
+down ducks, can hobble sideways and get stuck in little holes.  The walls are transparent 
+
+Holding a goes higher than pressing it
+
+Screen is centered at maximum middle-height; whenever the middle of the screen is crossed the screen goes up.
+
+When he hits the water, Pit flashes back and forth when he takes a damage as an immunity screen.  He looks like he turns into a racecar driver.  When he dies he screams and falls instantly.
+
+Immunity lasts for about 3 seconds.
+
+SACRED WORDS	000000 000000
+				E30000 0000Yx
+				
+DIFFERENT SACRED WORDS ON DEATH
+				
+Start from the beginning when you die
+
+Enemies poof away when shot
+
+Hearts dropped from enemies dissapear after about 4 seconds
+
+Arrows and projectiles do not curve around the screen.
+Pit can be any fraction around.
+Pit can shoot if the bow is fully on the right side
+
+If pit falls, "I'M FINISHED"
+	
+Enemies:
+Dragon marchers, floating angry eyes
+	Dragons - march straight forward and then move toward pit when they fall
+		They turn into little hearts on death
+		Come in 4s or 2s as well
+		Spawn in midair
+	Eyes fly around and follow the leader.  They don't wrap unless they're going down.  
+		Eyes go off the screen and vanish. 
+		They turn into big half-hearts on death
+		If one of them falls out of line it stops following them.
+		They spawn somewhere?
+		They don't seem to respawn all the time.
+		Kind of follow you
+		If the middle guys get killed, the edge guys keep their distance/pattern
+	Grim reapers summon dudes, take a bunch of hits, and do a little (does dance on edge of platform only)
+		Flashes on hit
+		Little dudes move similarly to the big orange eyes and drop little hearts
+		Grim reaper drops a huge heart
+		There will only ever be 4 little dudes on the screen at a time (sometime he summons 4 at once, sometimes pairs
+		Can't be killed while dancing
+			Or hit is delayed?
+		Little dudes spawn after grimp reaper notices you
+	Googly eyed mustache dudes flying purple things in special rooms. (really difficult)
+		Turn into big hearts on death
+		Come in eights
+	Munchy frog guys also take multiple hits
+		Until powerup where they die in one shot
+		Move around like dragons (=superdragon?)
+	Little fire things wake up if you step on them and shoot fire at you which you can't run away from (it moves really fast
+	Jumping crabs spawn out of below you x4es, not tir tentaclesh
+	Sideways plants hurt you with their ey
+Baddies survive water
+
+kinda slides off the edge of platform after he's halfway off
+has a little corner rounding
+	
+	Can move while shooting
+	
+	If the arrow hits even a corner of an enemy's tile, it counts as a hit
+	
+All enemies try to face you
+		
+Getting the harp turns enemies into axes.  Maybe they're keys?
+
+You can shoot while in the air.
+
+Arrows get stopped by the blocks you can jump through the bottom off.  You can't jump while aiming up, but can aim up while in mid air.
+
+You can land on platforms below the bottom of the screen.
+
+Hitting a ceiling pauses you in midair for a moment before you fall
+If you jump, forward velocity is maintained and 2 steps are taken upon landing unless you've changed direction in midair
+Can change direction in midair
+Hitting start pauses all badguys in place
+If you're far enough away you can shoot around the screen edge (so just the tip of the arrow makes it across)
+Screen ALWAYS wraps around
+In mystery box room, once you take something, the non-shot boxes disappear completely
+	Randomizes somehow?
+Arrow is always frontlayer, cupid is always backlayer
+
+When player enters room and comes back, enemies despawn/respawn
+
+Fewer enemies spawn the quicker you move?
+Ice floors are a bit slippery
+	They can be jumped through
+	Can also be ducked down through!
+	
+Moving floors!
+	Move till collision (so can loop around screen)
+	
+Respawn at level start
+
+Shop products are random
