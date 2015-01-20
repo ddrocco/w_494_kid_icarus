@@ -15,7 +15,7 @@ public class Foe_Dragon : Obj_Foe {
 	public float fallingSpeed = 3;
 	public float minTimeToFlip = 0;
 	public int collisionPauseTime = 25; //500 ms
-	private int collisionPauseTimer = 25;
+	public int collisionPauseTimer = 25;
 	
 	void Start () {
 		facePlayer ();
@@ -23,12 +23,13 @@ public class Foe_Dragon : Obj_Foe {
 	}
 	
 	void FixedUpdate () { //enemy continues moving where it's moving
-		if (collisionPauseTimer == collisionPauseTime) {
-			Vector3 translation = Vector3.zero; //Should never be used
-			collidedSinceLastUpdate = false;		
-			if (falling == true) {
-				translation = Vector3.down * fallingSpeed;
-			} else if (facing == direction.left) {
+		Vector3 translation = Vector3.zero; //Should never be used
+		collidedSinceLastUpdate = false;
+		if (falling == true) {
+			translation = Vector3.down * fallingSpeed;
+			transform.position += translation * Time.fixedDeltaTime;
+		} else if (collisionPauseTimer == collisionPauseTime) {
+			if (facing == direction.left) {
 				translation = Vector3.left * horizontalSpeed;
 			} else {
 				translation = Vector3.right * horizontalSpeed;
@@ -42,29 +43,29 @@ public class Foe_Dragon : Obj_Foe {
 	void OnTriggerEnter (Collider other) { //Turn around or stop falling and face player
 		if (collidedSinceLastUpdate == false) {
 			collidedSinceLastUpdate = true;
-			collisionPauseTimer = 0;
 			if (falling == true) { //Correct for falling; Height of collision block from center is 0.5
 				transform.position += Vector3.up * (other.gameObject.transform.position.y + 1.01f - transform.position.y);
 				falling = false;
 			} else if (facing == direction.left) {
 				transform.position += Vector3.right * (other.gameObject.transform.position.x + 1.01f - transform.position.x);
-				facing = direction.right;
+				flipDirection();
 			} else {
 				transform.position += Vector3.right * (other.gameObject.transform.position.x - 1.01f - transform.position.x);
-				facing = direction.left;
+				flipDirection();
 			}
 		}
 	}
 	
 	public void facePlayer() {
-		if (transform.position.x < Player_Info.gameObj.transform.position.x) {
-			facing = direction.right;
-		} else if (transform.position.x >= Player_Info.gameObj.transform.position.x) {
-			facing = direction.left;
+		if (transform.position.x < Player_Info.gameObj.transform.position.x && facing == direction.left) {
+			flipDirection();
+		} else if (transform.position.x >= Player_Info.gameObj.transform.position.x && facing == direction.right) {
+			flipDirection ();
 		}
 	}
 	
 	public void flipDirection() {
+		collisionPauseTimer = 0;
 		if (facing == direction.right) {
 			facing = direction.left;
 		} else if (facing == direction.left) {
