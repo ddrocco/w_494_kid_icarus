@@ -34,6 +34,7 @@ public class World_Generator : MonoBehaviour {
 	
 	void Awake() {
 		world = new List<Vector16>();
+		world.Add(new Vector16(0, 0, 0, 0, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 0));
 		world.Add(new Vector16(0, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 0));
 		world.Add(new Vector16(0, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 0));
 		world.Add(new Vector16(0, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 0));

@@ -17,7 +17,7 @@ public class Player_Fall_Handler : MonoBehaviour {
 	public float jumpSpeed = 0.2f;
 	public float floatSpeed = 0.05f;
 	public float floatGravity = 0.005f;
-	public float fallGravity = 0.3f;
+	public float fallGravity = 0.15f;
 	public float maxFallSpeed = 0.15f;
 	public Player_Action parent;
 	
@@ -37,9 +37,19 @@ public class Player_Fall_Handler : MonoBehaviour {
 	}
 	
 	void FixedUpdate() {
-		if (!Input.GetKey ("x") && !Input.GetKey ("l")) {
+		if (Input.GetKey ("l") || Input.GetKey ("x")) {
+			buttonHeld = true;
+		} else {
 			buttonHeld = false;
 		}
+		if ((Input.GetKeyDown ("l") || Input.GetKeyDown ("x"))
+					&& (collisions > 0 && jumpState == JumpState.falling)) {
+			parent.vSpeed = jumpSpeed;
+			jumpState = JumpState.jumping;
+			buttonHeld = true;
+			currentTime = 0;
+		} 
+		
 		switch(jumpState) {
 			case JumpState.jumping:
 				if (++currentTime >= jumpTimeMax || (!buttonHeld && currentTime >= jumpTimeMin)) {
@@ -62,15 +72,6 @@ public class Player_Fall_Handler : MonoBehaviour {
 					}
 				}
 				break;
-		}
-	}
-	
-	public void startJump() {
-		if (collisions > 0 && jumpState == JumpState.falling) {
-			parent.vSpeed = jumpSpeed;
-			jumpState = JumpState.jumping;
-			buttonHeld = true;
-			currentTime = 0;
 		}
 	}
 }
