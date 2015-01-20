@@ -8,17 +8,21 @@ public class Player_Action : MonoBehaviour {
 	static public bool faceRight = true;
 	static public bool faceUp = false;
 	static public bool faceDown = false;
-	bool stopFalling;
-//	private bool grounded = true;
-
-	// Use this for initialization
+	
 	void Start () {
 		fallHandler = GetComponentInChildren<Player_Fall_Handler>();
 	}
 
-	// Update is called once per frame
 	void FixedUpdate () {
-		print (vSpeed);
+		if (transform.position.y > Camera.main.transform.position.y) {
+			Camera.main.transform.Translate (new Vector3(0, .1f, 0));
+		}
+		//falls of the bottom of the screen
+		Vector3 screenBottomLeft = Camera.main.ViewportToWorldPoint (new Vector3 (0, 0, 0));		
+		if (transform.position.y < screenBottomLeft.y) {
+			print ("I failed!");
+		}
+		
 		//Horizontal/inplace movement
 		transform.localScale = new Vector3 (1f, 1.5f, 1f);
 		if (Input.GetKey ("right") || Input.GetKey ("d")) {
