@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class Foe_Dragon : Obj_Foe {
+	public Player_Shoot player;
 
 	public enum direction {
 		left,
@@ -16,13 +17,26 @@ public class Foe_Dragon : Obj_Foe {
 	public float minTimeToFlip = 0;
 	public int collisionPauseTime = 25; //500 ms
 	public int collisionPauseTimer = 25;
+	public int animationSteps = 3;
+	public int stepsSinceAnimation = 0;
+	
+	public Sprite animation0;
+	public Sprite animation1;
 	
 	void Start () {
+		player = FindObjectOfType<Player_Shoot>();
 		facePlayer ();
 		falling = true;
 	}
 	
 	void FixedUpdate () { //enemy continues moving where it's moving
+		if (++stepsSinceAnimation == animationSteps) {
+			GetComponent<SpriteRenderer>().sprite = animation0;
+		} else if (stepsSinceAnimation == 2*animationSteps) {
+			GetComponent<SpriteRenderer>().sprite = animation1;
+			stepsSinceAnimation = 0;
+		}
+	
 		Vector3 translation = Vector3.zero; //Should never be used
 		collidedSinceLastUpdate = false;
 		if (falling == true) {
@@ -41,7 +55,9 @@ public class Foe_Dragon : Obj_Foe {
 	}
 	
 	void OnTriggerEnter (Collider other) { //Turn around or stop falling and face player
-		if (collidedSinceLastUpdate == false) {
+		if (other.gameObject.layer == 10) {
+			other.GetComponent<Player_Action>().HitByEnemy();
+		} else if (collidedSinceLastUpdate == false) {
 			collidedSinceLastUpdate = true;
 			if (falling == true) { //Correct for falling; Height of collision block from center is 0.5
 				transform.position += Vector3.up * (other.gameObject.transform.position.y + 1.01f - transform.position.y);
@@ -57,15 +73,16 @@ public class Foe_Dragon : Obj_Foe {
 	}
 	
 	public void facePlayer() {
-		if (transform.position.x < Player_Info.gameObj.transform.position.x && facing == direction.left) {
+		if (transform.position.x < player.transform.position.x && facing == direction.left) {
 			flipDirection();
-		} else if (transform.position.x >= Player_Info.gameObj.transform.position.x && facing == direction.right) {
+		} else if (transform.position.x >= player.transform.position.x && facing == direction.right) {
 			flipDirection ();
 		}
 	}
 	
 	public void flipDirection() {
 		collisionPauseTimer = 0;
+		transform.localScale = new Vector3(-transform.localScale.x,1f,1f);
 		if (facing == direction.right) {
 			facing = direction.left;
 		} else if (facing == direction.left) {

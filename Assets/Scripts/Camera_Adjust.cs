@@ -8,7 +8,7 @@ public class Camera_Adjust : MonoBehaviour {
 
 	void Awake () {
 		Camera.main.aspect = 1.0f;
-		Camera.main.orthographicSize = 7f;
+		Camera.main.orthographicSize = 8f;
 	}
 	
 	// Use this for initialization

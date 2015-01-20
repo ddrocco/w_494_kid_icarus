@@ -6,7 +6,7 @@ public class Player_Info : MonoBehaviour {
 	public static GameObject gameObj;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		GameObject player = Instantiate (playerPrefab) as GameObject;
 		gameObj = player;
 	}
