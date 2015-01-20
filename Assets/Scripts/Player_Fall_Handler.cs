@@ -54,8 +54,7 @@ public class Player_Fall_Handler : MonoBehaviour {
 		}
 		
 		if ((Input.GetKeyDown ("l") || Input.GetKeyDown ("x"))
-					&& (blocksBeneath.Count > 0 && jumpState == JumpState.floating)) {
-			print ("blah");
+					&& (blocksBeneath.Count > 0 && jumpState == JumpState.floating)) {;
 			parent.vSpeed = jumpSpeed;
 			jumpState = JumpState.jumping;
 			buttonHeld = true;

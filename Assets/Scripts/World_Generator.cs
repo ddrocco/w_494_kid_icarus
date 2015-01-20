@@ -43,7 +43,6 @@ public class World_Generator : MonoBehaviour {
 	
 	void Start() {
 		int rows = world.Count;
-		print (rows);
 		for (int y = 0; y < rows; ++y) {
 			for (int x = 0; x < 16; ++x) {
 				Build(world[y].get[x], x, rows - y);

@@ -1,7 +1,10 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Player_Action : MonoBehaviour {
+	public int currency;
+
 	public float xMaxSpeed = .15f;
 	public float vSpeed;
 	public float xSpeed;
@@ -23,6 +26,11 @@ public class Player_Action : MonoBehaviour {
 	public Sprite standingPit;
 	public Sprite duckingPit;
 	public Sprite upwardPit;
+	
+	public AudioClip hitByEnemy;
+	
+	public GameObject healthRenderer;
+	public GameObject heartsRenderer;
 	
 	void Start () {
 		fallHandler = GetComponentInChildren<Player_Fall_Handler>();
@@ -107,6 +115,13 @@ public class Player_Action : MonoBehaviour {
 	}
 	
 	void OnTriggerEnter (Collider other) {
+		if (other.gameObject.layer == 14) { //Collectible
+			Heart_Pickup_Script collected = other.gameObject.GetComponent<Heart_Pickup_Script>();
+			currency += collected.value;
+			Destroy(other.gameObject);
+			UpdateUI();
+			return;
+		}
 		//Falling on blocks:
 		if (fallHandler.blocksBeneath.Contains(other)) {
 			transform.position += Vector3.up * (other.gameObject.transform.position.y
@@ -160,9 +175,30 @@ public class Player_Action : MonoBehaviour {
 	
 	public void HitByEnemy() {
 		if (invulnerable == false) {
+			AudioSource.PlayClipAtPoint(hitByEnemy, FindObjectOfType<Camera>().transform.position);
 			--health;
 			invulnerable = true;
 			timeSinceHit = 0;
+			UpdateUI();
+		}
+	}
+	
+	public void UpdateUI() {
+		if (healthRenderer == null || heartsRenderer == null) {
+			healthRenderer = GameObject.FindWithTag("Health_Renderer");
+			heartsRenderer = GameObject.FindWithTag("Hearts_Renderer");
+		}
+		healthRenderer.GetComponent<Text>().text = "Health: " + health.ToString();
+		heartsRenderer.GetComponent<Text>().text = "Hearts: " + toThreeDigits (currency);
+	}
+	
+	public string toThreeDigits(int hearts) {
+		if (hearts < 10) {
+			return ("00" + hearts.ToString());
+		} else if (hearts < 100) {
+			return ("0" + hearts.ToString());
+		} else {
+			return hearts.ToString();
 		}
 	}
 }

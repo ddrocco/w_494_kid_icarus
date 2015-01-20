@@ -29,6 +29,13 @@ public class Arrow_Action : MonoBehaviour {
 			GameObject.Destroy (this.gameObject);
 		}
 	}
+	
+	void OnTriggerEnter(Collider other) {
+		/*if (other.gameObject.layer != 9) {
+			//other.gameObject.GetComponent<Obj_Foe>().HitByArrow();
+		}
+		//GameObject.Destroy(this.gameObject);*/
+	}
 
 	void OnDestroy() {
 		Player_Shoot.shotArrow = false;

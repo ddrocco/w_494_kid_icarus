@@ -27,17 +27,47 @@ public class Foe_Dragon : Obj_Foe {
 		player = FindObjectOfType<Player_Shoot>();
 		facePlayer ();
 		falling = true;
+		health = 1;
+		itemDropOnDeath = item.smallHeart;
 	}
 	
 	void FixedUpdate () { //enemy continues moving where it's moving
+		animate ();
+		move();
+	}
+	
+	void OnTriggerEnter (Collider other) { //Turn around or stop falling and face player
+		if (other.gameObject.layer == 10) { //Player
+			other.GetComponent<Player_Action>().HitByEnemy();
+		} else if (other.gameObject.layer == 13) { //Arrow
+			HitByArrow();
+			GameObject.Destroy(other.gameObject);
+		} else if (collidedSinceLastUpdate == false) {
+			collidedSinceLastUpdate = true;
+			if (falling == true) { //Correct for falling; Height of collision block from center is 0.5
+				transform.position += Vector3.up * (other.gameObject.transform.position.y + 1.01f - transform.position.y);
+				falling = false;
+			} else if (facing == direction.left) {
+				transform.position += Vector3.right * (other.gameObject.transform.position.x + 1.01f - transform.position.x);
+				flipDirection();
+			} else {
+				transform.position += Vector3.right * (other.gameObject.transform.position.x - 1.01f - transform.position.x);
+				flipDirection();
+			}
+		}
+	}
+	
+	private void animate() {
 		if (++stepsSinceAnimation == animationSteps) {
 			GetComponent<SpriteRenderer>().sprite = animation0;
 		} else if (stepsSinceAnimation == 2*animationSteps) {
 			GetComponent<SpriteRenderer>().sprite = animation1;
 			stepsSinceAnimation = 0;
 		}
+	}
 	
-		Vector3 translation = Vector3.zero; //Should never be used
+	private void move() {
+		Vector3 translation = Vector3.zero; //Initialization doesn't matter
 		collidedSinceLastUpdate = false;
 		if (falling == true) {
 			translation = Vector3.down * fallingSpeed;
@@ -51,24 +81,6 @@ public class Foe_Dragon : Obj_Foe {
 			transform.position += translation * Time.fixedDeltaTime;
 		} else {
 			++collisionPauseTimer;
-		}
-	}
-	
-	void OnTriggerEnter (Collider other) { //Turn around or stop falling and face player
-		if (other.gameObject.layer == 10) {
-			other.GetComponent<Player_Action>().HitByEnemy();
-		} else if (collidedSinceLastUpdate == false) {
-			collidedSinceLastUpdate = true;
-			if (falling == true) { //Correct for falling; Height of collision block from center is 0.5
-				transform.position += Vector3.up * (other.gameObject.transform.position.y + 1.01f - transform.position.y);
-				falling = false;
-			} else if (facing == direction.left) {
-				transform.position += Vector3.right * (other.gameObject.transform.position.x + 1.01f - transform.position.x);
-				flipDirection();
-			} else {
-				transform.position += Vector3.right * (other.gameObject.transform.position.x - 1.01f - transform.position.x);
-				flipDirection();
-			}
 		}
 	}
 	
