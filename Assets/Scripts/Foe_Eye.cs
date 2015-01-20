@@ -6,9 +6,9 @@ public class Foe_Eye : MonoBehaviour {
 	public GameObject eye;
 	private Vector3 spawnPoint;
 	//private Transform[] eyes = new Transform[3];
-	public float mSpeed = 1f;
-	public float mXScale = 1f;
-	public float mYScale = 1f;
+	public float mSpeed;
+	public float mXScale;
+	public float mYScale;
 	
 	private Vector3 mPivot;
 	private Vector3 mPivotOffset;
@@ -28,7 +28,12 @@ public class Foe_Eye : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		mPivotOffset = Vector3.up * 2 * mXScale;
+		if (5 - Mathf.Abs(transform.position.y) < .25) {
+			mSpeed -= .01f;
+		} else {
+			mSpeed = 2f;
+		}
+		mPivotOffset = Vector3.right * 2 * mXScale;
 		mPhase += mSpeed * Time.deltaTime;
 		if (mPhase > m2Pi) {
 			mInvert = !mInvert;
