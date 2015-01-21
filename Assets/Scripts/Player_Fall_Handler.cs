@@ -41,10 +41,12 @@ public class Player_Fall_Handler : MonoBehaviour {
 		if (blocksBeneath.Count == 0) {
 			++currentTime;
 		} else {
-			currentTime = 0;
 			if (jumpState == JumpState.falling) {
 				parent.vSpeed = 0;
 				jumpState = JumpState.floating;
+			}
+			if (parent.vSpeed < 0.01) {
+				currentTime = 0;
 			}
 		}
 		if (Input.GetKey (".") || Input.GetKey ("x")) {

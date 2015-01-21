@@ -56,7 +56,7 @@ public class Player_Action : MonoBehaviour {
 			if (!faceUp) {
 				bool no_collisions = true;
 				foreach (Collider cld in bumpHandler.blocksAdjacent) {
-					if (cld.transform.position.x > transform.position.x) {
+					if (cld.transform.position.x > transform.position.x && cld.tag != "JumpThrough") {
 						no_collisions = false;
 						transform.Translate (Vector3.right * (cld.gameObject.transform.position.x
                       				- blockOffsetLR - transform.position.x));
@@ -74,7 +74,7 @@ public class Player_Action : MonoBehaviour {
 			if (!faceUp) {
 				bool no_collisions = true;
 				foreach (Collider cld in bumpHandler.blocksAdjacent) {
-					if (cld.transform.position.x < transform.position.x) {
+					if (cld.transform.position.x < transform.position.x && cld.tag != "JumpThrough") {
 						no_collisions = false;
 						transform.Translate (Vector3.right * (cld.gameObject.transform.position.x
                      				+ blockOffsetLR - transform.position.x));
@@ -123,7 +123,9 @@ public class Player_Action : MonoBehaviour {
 			return;
 		}
 		//Falling on blocks:
-		if (fallHandler.blocksBeneath.Contains(other)) {
+		if (fallHandler.blocksBeneath.Contains(other)
+					&& (other.tag != "JumpThrough"
+					|| faceDown == false)) {
 			transform.position += Vector3.up * (other.gameObject.transform.position.y
 						+ 0.51f + transform.localScale.y / 2 - transform.position.y);
 			if (vSpeed < 0) {
@@ -131,18 +133,17 @@ public class Player_Action : MonoBehaviour {
 			}
 		}
 		
+		if (other.tag == "JumpThrough") {
+			return;
+		}
+		
 		//Bumping head on blocks:
 		else if (other.transform.position.y - transform.position.y > 1.6f * abs(transform.position.x
 					- other.transform.position.x)) {
-			if (other.tag != "JumpThrough") {
-				transform.position += Vector3.up * (other.gameObject.transform.position.y
-	                    	- 0.51f - transform.localScale.y / 2 - transform.position.y);
-				vSpeed = 0;
-				fallHandler.jumpState = Player_Fall_Handler.JumpState.falling;
-			}
-			else {
-				return;
-			}
+			transform.position += Vector3.up * (other.gameObject.transform.position.y
+                    	- 0.51f - transform.localScale.y / 2 - transform.position.y);
+			vSpeed = 0;
+			fallHandler.jumpState = Player_Fall_Handler.JumpState.falling;
 		}
 		
 		//From the left-collision:
