@@ -34,10 +34,11 @@ public class World_Generator : MonoBehaviour {
 	
 	void Awake() {
 		world = new List<Vector16>();
-		world.Add(new Vector16(0, 0, 0, 0, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 0));
+		world.Add(new Vector16(9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 0, 9, 9));
+		world.Add(new Vector16(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0));
 		world.Add(new Vector16(0, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 0));
 		world.Add(new Vector16(0, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 0));
-		world.Add(new Vector16(0, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 0));
+		world.Add(new Vector16(0, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 0, 0, 0, 9, 0));
 		world.Add(new Vector16(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
 	}
 	
@@ -47,6 +48,8 @@ public class World_Generator : MonoBehaviour {
 			for (int x = 0; x < 16; ++x) {
 				Build(world[y].get[x], x, rows - y);
 			}
+			Build(world[y].get[0], 16, rows - y);
+			Build(world[y].get[15], -1, rows - y);
 		}
 	}
 	
