@@ -47,7 +47,7 @@ public class Player_Action : MonoBehaviour {
 		//falls of the bottom of the screen
 		Vector3 screenBottomLeft = Camera.main.ViewportToWorldPoint (new Vector3 (0, 0, 0));		
 		if (transform.position.y < screenBottomLeft.y) {
-			print ("I failed!");
+			Application.LoadLevel("_Failed_Screen");
 		}
 		
 		//Horizontal/inplace movement
