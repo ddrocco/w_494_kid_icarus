@@ -14,7 +14,6 @@ public class Foe_Spawner : MonoBehaviour {
 	
 	public List<int> respawnTimers;
 	public int respawnTime = 600;
-	public bool respawnSlotAvailable = false;
 	
 	// Use this for initialization
 	void Start () {

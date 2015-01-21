@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Foe_Eye : MonoBehaviour {
+public class Foe_Eye : Obj_Foe {
 	public GameObject eye;
 	private Vector3 spawnPoint;
 	//private Transform[] eyes = new Transform[3];
@@ -24,6 +24,8 @@ public class Foe_Eye : MonoBehaviour {
 	
 	void Start() {
 		mPivot = transform.position;
+		health = 1;
+		itemDropOnDeath = item.halfHeart;
 	}
 	
 	// Update is called once per frame

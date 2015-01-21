@@ -2,7 +2,7 @@
 using System.Collections;
 
 
-public class Foe_Eye_Alt : MonoBehaviour {
+public class Foe_Eye_Alt : Obj_Foe {
 	public enum location {
 		tRight,
 		tLeft,
@@ -11,14 +11,14 @@ public class Foe_Eye_Alt : MonoBehaviour {
 	};
 
 	public GameObject player;
-	public GameObject foeEye;
+	//public GameObject foeEye;
 	public float xSpeed;
 	public float ySpeed;
 	public float timer;
 	private location goHere;
 	private location wasHere;
 	private float savedTime;
-	private GameObject[] eyes;
+	//private GameObject[] eyes;
 
 	// Use this for initialization
 	void Start () {
@@ -31,13 +31,15 @@ public class Foe_Eye_Alt : MonoBehaviour {
 		savedTime = Time.time;
 		//spawn new eyes
 		int x = Random.Range(1, 5);
-		eyes = new GameObject[x];
+		//eyes = new GameObject[x];
 		Vector3 spawnPt = new Vector3(transform.position.x, transform.position.y + 1f, 0f);
-		for (int i = 0; i < x; ++i) {
-			eyes[i] = Instantiate(foeEye, spawnPt, Quaternion.identity) as GameObject;
+		/*for (int i = 0; i < x; ++i) {
+			//eyes[i] = Instantiate(foeEye, spawnPt, Quaternion.identity) as GameObject;
 			Vector3 tempPt = spawnPt;
 			spawnPt = new Vector3(tempPt.x, tempPt.y + 1, 0);
-		}
+		}*/
+		health = 1;
+		itemDropOnDeath = item.halfHeart;
 	}
 	
 	// Update is called once per frame
@@ -45,7 +47,7 @@ public class Foe_Eye_Alt : MonoBehaviour {
 		Vector3 temp  =  new Vector3(transform.position.x + xSpeed, transform.position.y + ySpeed, 0);
 		transform.position = temp;
 		if (transform.position.y == player.transform.position.y) {
-			print ("Saw you!");
+			//print ("Saw you!");
 		}
 		if (Time.time - savedTime >= timer) {
 			if (goHere == location.bLeft && wasHere == location.tLeft) {
