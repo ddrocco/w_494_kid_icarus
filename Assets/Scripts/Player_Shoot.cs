@@ -15,7 +15,6 @@ public class Player_Shoot : MonoBehaviour {
 		if (Input.GetKeyDown ("z") || Input.GetKeyDown (",")) {
 			if (!Player_Action.faceDown && !shotArrow) {
 				shotArrow = true;
-				//GameObject arrow = Instantiate (arrowPrefab, transform.position, transform.rotation) as GameObject;
 				Instantiate (arrowPrefab, transform.position, transform.rotation);
 			}
 		}

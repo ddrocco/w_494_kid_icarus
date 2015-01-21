@@ -67,7 +67,7 @@ public class Player_Action : MonoBehaviour {
 					transform.Translate (new Vector3(xMaxSpeed, 0, 0));
 				}
 			}
-			transform.localScale = new Vector3(-1f,1f,1f);
+			transform.localScale = new Vector3(1f,1f,1f);
 			faceRight = true;
 		} 
 		if ((Input.GetKey ("left") || Input.GetKey ("a")) && leftMoveRestricted == false) {
@@ -85,7 +85,7 @@ public class Player_Action : MonoBehaviour {
 					transform.Translate (new Vector3(-xMaxSpeed, 0, 0));
 				}
 			}
-			transform.localScale = new Vector3(1f,1f,1f);
+			transform.localScale = new Vector3(-1f,1f,1f);
 			faceRight = false;
 		}
 		if (Input.GetKey ("up") || Input.GetKey ("w")) {
@@ -134,10 +134,15 @@ public class Player_Action : MonoBehaviour {
 		//Bumping head on blocks:
 		else if (other.transform.position.y - transform.position.y > 1.6f * abs(transform.position.x
 					- other.transform.position.x)) {
-			transform.position += Vector3.up * (other.gameObject.transform.position.y
-                    	- 0.51f - transform.localScale.y / 2 - transform.position.y);
-			vSpeed = 0;
-			fallHandler.jumpState = Player_Fall_Handler.JumpState.falling;
+			if (other.tag != "JumpThrough") {
+				transform.position += Vector3.up * (other.gameObject.transform.position.y
+	                    	- 0.51f - transform.localScale.y / 2 - transform.position.y);
+				vSpeed = 0;
+				fallHandler.jumpState = Player_Fall_Handler.JumpState.falling;
+			}
+			else {
+				return;
+			}
 		}
 		
 		//From the left-collision:

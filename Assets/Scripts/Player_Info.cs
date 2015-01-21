@@ -7,7 +7,8 @@ public class Player_Info : MonoBehaviour {
 
 	// Use this for initialization
 	void Awake () {
-		GameObject player = Instantiate (playerPrefab) as GameObject;
+		Vector3 location = new Vector3(-6, 4, 0);
+		GameObject player = Instantiate (playerPrefab, location, Quaternion.identity) as GameObject;
 		gameObj = player;
 	}
 	

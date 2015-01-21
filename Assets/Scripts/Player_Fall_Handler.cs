@@ -47,13 +47,13 @@ public class Player_Fall_Handler : MonoBehaviour {
 				jumpState = JumpState.floating;
 			}
 		}
-		if (Input.GetKey ("l") || Input.GetKey ("x")) {
+		if (Input.GetKey (".") || Input.GetKey ("x")) {
 			buttonHeld = true;
 		} else {
 			buttonHeld = false;
 		}
 		
-		if ((Input.GetKeyDown ("l") || Input.GetKeyDown ("x"))
+		if ((Input.GetKeyDown (".") || Input.GetKeyDown ("x"))
 					&& (blocksBeneath.Count > 0 && jumpState == JumpState.floating)) {;
 			parent.vSpeed = jumpSpeed;
 			jumpState = JumpState.jumping;

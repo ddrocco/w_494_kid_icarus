@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: d2400bf74db3642eba79a4ab81628680
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - player: {fileID: 172790, guid: 0878a1e9c2c22bd4a8dbf06e0e92336e, type: 2}
+  - foeEye: {fileID: 100000, guid: e9dc451316b0a46ef9cd7f5295a1ab41, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
