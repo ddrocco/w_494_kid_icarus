@@ -40,8 +40,8 @@ public class Foe_Dragon : Obj_Foe {
 		if (other.gameObject.layer == 10) { //Player
 			other.GetComponent<Player_Action>().HitByEnemy();
 		} else if (other.gameObject.layer == 13) { //Arrow
-			HitByArrow();
 			GameObject.Destroy(other.gameObject);
+			HitByArrow();
 		} else if (collidedSinceLastUpdate == false) {
 			collidedSinceLastUpdate = true;
 			if (falling == true) { //Correct for falling; Height of collision block from center is 0.5

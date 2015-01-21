@@ -3,6 +3,9 @@ using System.Collections;
 
 public class Obj_Foe : MonoBehaviour {
 	public int health;
+	public Foe_Spawner spawner;
+	public bool spawned; //debug
+	
 	public enum item {
 		smallHeart,
 		halfHeart,
@@ -40,6 +43,9 @@ public class Obj_Foe : MonoBehaviour {
 	}
 	
 	void OnDestroy() {
+		if (spawned) {
+			spawner.foesList.Remove (this);
+		}
 		//Drop item:		
 		//Puff of smoke (should spawn item when smoke clears
 	}
