@@ -16,10 +16,7 @@ public class Door_Teleport : MonoBehaviour {
 	}
 	
 	void OnTriggerEnter(Collider other) {
-		if (other.gameObject.layer == 10) {
-			Vector3 spawnPos = otherEnd.transform.position;
-			player.transform.position = spawnPos;
-		}
+		Application.LoadLevel("_Level_1");
 	}
 	
 }
